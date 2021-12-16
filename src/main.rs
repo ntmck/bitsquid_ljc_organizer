@@ -47,7 +47,8 @@ fn copy_organize(idir: &Path, odir: &Path) {
 }
 
 fn read_internal_path(ljc: &mut File, name_len: u64) -> String {
-    let mut name_buf = [0u8; 255];
+    const MAX_PATH_SIZE: usize = 260;
+    let mut name_buf = [0u8; MAX_PATH_SIZE];
     ljc.take(name_len).read(&mut name_buf).unwrap();
     String::from_utf8(name_buf[0..name_len as usize].to_vec()).unwrap().replace("@", "")
 }
